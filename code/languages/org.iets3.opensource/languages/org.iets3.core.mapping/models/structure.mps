@@ -8,6 +8,8 @@
   <imports>
     <import index="w9y2" ref="r:b3786745-c763-4a49-a754-f84e15236f18(org.iets3.components.core.structure)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
+    <import index="hm2y" ref="r:66e07cb4-a4b0-4bf3-a36d-5e9ed1ff1bd3(org.iets3.core.expr.base.structure)" implicit="true" />
+    <import index="vs0r" ref="r:f7764ca4-8c75-4049-922b-08516400a727(com.mbeddr.core.base.structure)" implicit="true" />
   </imports>
   <registry>
     <language id="c72da2b9-7cce-4447-8389-f407dc1158b7" name="jetbrains.mps.lang.structure">
@@ -57,19 +59,20 @@
     <property role="EcuMT" value="3114648693360496996" />
     <property role="TrG5h" value="ComponentMapping" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
-    <node concept="1TJgyj" id="2GTt7K7SL5_" role="1TKVEi">
-      <property role="IQ2ns" value="3114648693360496997" />
-      <property role="20lmBu" value="reference" />
-      <property role="20kJfa" value="source" />
-      <property role="20lbJX" value="1" />
-      <ref role="20lvS9" to="w9y2:6LfBX8Yi4o1" resolve="Component" />
+    <node concept="1TJgyj" id="2GTt7K7V78r" role="1TKVEi">
+      <property role="IQ2ns" value="3114648693361111579" />
+      <property role="20lmBu" value="aggregation" />
+      <property role="20kJfa" value="mappingSource" />
+      <ref role="20lvS9" to="hm2y:6sdnDbSla17" resolve="Expression" />
     </node>
-    <node concept="1TJgyj" id="2GTt7K7SL6c" role="1TKVEi">
-      <property role="IQ2ns" value="3114648693360497036" />
-      <property role="20lmBu" value="reference" />
-      <property role="20kJfa" value="target" />
-      <property role="20lbJX" value="1" />
-      <ref role="20lvS9" to="w9y2:6LfBX8Yi4o1" resolve="Component" />
+    <node concept="1TJgyj" id="2GTt7K7WkjI" role="1TKVEi">
+      <property role="IQ2ns" value="3114648693361427694" />
+      <property role="20lmBu" value="aggregation" />
+      <property role="20kJfa" value="mappingTarget" />
+      <ref role="20lvS9" to="hm2y:6sdnDbSla17" resolve="Expression" />
+    </node>
+    <node concept="PrWs8" id="2GTt7K7VYSC" role="PzmwI">
+      <ref role="PrY4T" to="vs0r:6clJcrJXo2z" resolve="IVisibleElementProvider" />
     </node>
   </node>
 </model>
