@@ -61,6 +61,7 @@
   <node concept="1TIwiD" id="2GTt7K7SL5$">
     <property role="EcuMT" value="3114648693360496996" />
     <property role="TrG5h" value="ComponentMapping" />
+    <property role="34LRSv" value="map" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
     <node concept="PrWs8" id="2GTt7K7VYSC" role="PzmwI">
       <ref role="PrY4T" to="vs0r:6clJcrJXo2z" resolve="IVisibleElementProvider" />
