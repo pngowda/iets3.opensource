@@ -7,6 +7,7 @@
   </languages>
   <imports>
     <import index="hm2y" ref="r:66e07cb4-a4b0-4bf3-a36d-5e9ed1ff1bd3(org.iets3.core.expr.base.structure)" />
+    <import index="w9y2" ref="r:b3786745-c763-4a49-a754-f84e15236f18(org.iets3.components.core.structure)" />
     <import index="tpck" ref="r:00000000-0000-4000-0000-011c89590288(jetbrains.mps.lang.core.structure)" implicit="true" />
     <import index="vs0r" ref="r:f7764ca4-8c75-4049-922b-08516400a727(com.mbeddr.core.base.structure)" implicit="true" />
   </imports>
@@ -14,8 +15,10 @@
     <language id="c72da2b9-7cce-4447-8389-f407dc1158b7" name="jetbrains.mps.lang.structure">
       <concept id="1169125787135" name="jetbrains.mps.lang.structure.structure.AbstractConceptDeclaration" flags="ig" index="PkWjJ">
         <property id="6714410169261853888" name="conceptId" index="EcuMT" />
+        <property id="5092175715804935370" name="conceptAlias" index="34LRSv" />
         <child id="1071489727083" name="linkDeclaration" index="1TKVEi" />
       </concept>
+      <concept id="1169125989551" name="jetbrains.mps.lang.structure.structure.InterfaceConceptDeclaration" flags="ig" index="PlHQZ" />
       <concept id="1169127622168" name="jetbrains.mps.lang.structure.structure.InterfaceConceptReference" flags="ig" index="PrWs8">
         <reference id="1169127628841" name="intfc" index="PrY4T" />
       </concept>
@@ -40,8 +43,9 @@
   </registry>
   <node concept="1TIwiD" id="2GTt7K7SL5z">
     <property role="EcuMT" value="3114648693360496995" />
-    <property role="TrG5h" value="ComponentMappingContainer" />
+    <property role="TrG5h" value="MappingContainer" />
     <property role="19KtqR" value="true" />
+    <property role="34LRSv" value="mapping" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
     <node concept="1TJgyj" id="2GTt7K7TaWC" role="1TKVEi">
       <property role="IQ2ns" value="3114648693360602920" />
@@ -50,14 +54,17 @@
       <property role="20lbJX" value="0..n" />
       <ref role="20lvS9" node="2GTt7K7SL5$" resolve="ComponentMapping" />
     </node>
-    <node concept="PrWs8" id="2GTt7K7TaVS" role="PzmwI">
-      <ref role="PrY4T" to="tpck:h0TrEE$" resolve="INamedConcept" />
+    <node concept="PrWs8" id="xRJzbv1hya" role="PzmwI">
+      <ref role="PrY4T" to="w9y2:6LfBX8Yivpj" resolve="IComponentsChunkContent" />
     </node>
   </node>
   <node concept="1TIwiD" id="2GTt7K7SL5$">
     <property role="EcuMT" value="3114648693360496996" />
     <property role="TrG5h" value="ComponentMapping" />
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="PrWs8" id="2GTt7K7VYSC" role="PzmwI">
+      <ref role="PrY4T" to="vs0r:6clJcrJXo2z" resolve="IVisibleElementProvider" />
+    </node>
     <node concept="1TJgyj" id="2GTt7K7V78r" role="1TKVEi">
       <property role="IQ2ns" value="3114648693361111579" />
       <property role="20lmBu" value="aggregation" />
@@ -70,9 +77,21 @@
       <property role="20kJfa" value="mappingTarget" />
       <ref role="20lvS9" to="hm2y:6sdnDbSla17" resolve="Expression" />
     </node>
-    <node concept="PrWs8" id="2GTt7K7VYSC" role="PzmwI">
-      <ref role="PrY4T" to="vs0r:6clJcrJXo2z" resolve="IVisibleElementProvider" />
+  </node>
+  <node concept="1TIwiD" id="xRJzbv1sNy">
+    <property role="EcuMT" value="610165400231333090" />
+    <property role="TrG5h" value="EmptyMappingContent" />
+    <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
+    <node concept="PrWs8" id="xRJzbv1sN_" role="PzmwI">
+      <ref role="PrY4T" node="xRJzbv1sN$" resolve="IMappingContent" />
     </node>
+    <node concept="PrWs8" id="xRJzbv1wcb" role="PzmwI">
+      <ref role="PrY4T" to="tpck:1_TrU5E6oyb" resolve="IDontSubstituteByDefault" />
+    </node>
+  </node>
+  <node concept="PlHQZ" id="xRJzbv1sN$">
+    <property role="EcuMT" value="610165400231333092" />
+    <property role="TrG5h" value="IMappingContent" />
   </node>
 </model>
 
