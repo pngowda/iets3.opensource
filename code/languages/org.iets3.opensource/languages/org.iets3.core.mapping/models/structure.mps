@@ -52,7 +52,7 @@
       <property role="20lmBu" value="aggregation" />
       <property role="20kJfa" value="mappings" />
       <property role="20lbJX" value="0..n" />
-      <ref role="20lvS9" node="2GTt7K7SL5$" resolve="ComponentMapping" />
+      <ref role="20lvS9" node="xRJzbv1sN$" resolve="IMappingContent" />
     </node>
     <node concept="PrWs8" id="xRJzbv1hya" role="PzmwI">
       <ref role="PrY4T" to="w9y2:6LfBX8Yivpj" resolve="IComponentsChunkContent" />
@@ -64,6 +64,9 @@
     <ref role="1TJDcQ" to="tpck:gw2VY9q" resolve="BaseConcept" />
     <node concept="PrWs8" id="2GTt7K7VYSC" role="PzmwI">
       <ref role="PrY4T" to="vs0r:6clJcrJXo2z" resolve="IVisibleElementProvider" />
+    </node>
+    <node concept="PrWs8" id="xRJzbv2PYk" role="PzmwI">
+      <ref role="PrY4T" node="xRJzbv1sN$" resolve="IMappingContent" />
     </node>
     <node concept="1TJgyj" id="2GTt7K7V78r" role="1TKVEi">
       <property role="IQ2ns" value="3114648693361111579" />

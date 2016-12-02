@@ -91,6 +91,9 @@
       <concept id="1145567426890" name="jetbrains.mps.lang.smodel.structure.SNodeListCreator" flags="nn" index="2T8Vx0">
         <child id="1145567471833" name="createdType" index="2T96Bj" />
       </concept>
+      <concept id="1139184414036" name="jetbrains.mps.lang.smodel.structure.LinkList_AddNewChildOperation" flags="nn" index="WFELt">
+        <reference id="1139877738879" name="concept" index="1A0vxQ" />
+      </concept>
       <concept id="1171407110247" name="jetbrains.mps.lang.smodel.structure.Node_GetAncestorOperation" flags="nn" index="2Xjw5R" />
       <concept id="3562215692195599741" name="jetbrains.mps.lang.smodel.structure.SLinkImplicitSelect" flags="nn" index="13MTOL">
         <reference id="3562215692195600259" name="link" index="13MTZf" />
@@ -242,7 +245,21 @@
   <node concept="13h7C7" id="xRJzbv1hHT">
     <ref role="13h7C2" to="ykd4:2GTt7K7SL5z" resolve="MappingContainer" />
     <node concept="13hLZK" id="xRJzbv1hHU" role="13h7CW">
-      <node concept="3clFbS" id="xRJzbv1hHV" role="2VODD2" />
+      <node concept="3clFbS" id="xRJzbv1hHV" role="2VODD2">
+        <node concept="3clFbF" id="xRJzbv2GMJ" role="3cqZAp">
+          <node concept="2OqwBi" id="xRJzbv2NhD" role="3clFbG">
+            <node concept="2OqwBi" id="xRJzbv2H1K" role="2Oq$k0">
+              <node concept="13iPFW" id="xRJzbv2GMI" role="2Oq$k0" />
+              <node concept="3Tsc0h" id="xRJzbv2LtW" role="2OqNvi">
+                <ref role="3TtcxE" to="ykd4:2GTt7K7TaWC" resolve="mappings" />
+              </node>
+            </node>
+            <node concept="WFELt" id="xRJzbv2PeD" role="2OqNvi">
+              <ref role="1A0vxQ" to="ykd4:xRJzbv1sNy" resolve="EmptyMappingContent" />
+            </node>
+          </node>
+        </node>
+      </node>
     </node>
     <node concept="13i0hz" id="xRJzbv1hI4" role="13h7CS">
       <property role="13i0iv" value="false" />
