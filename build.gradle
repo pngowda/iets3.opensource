@@ -105,10 +105,22 @@ ant.properties['mps.home'] = resolveMps.destinationDir
 ant.properties['iets3.github.opensource.home'] = rootDir
 ant.properties['build.dir'] = rootDir
 ant.properties['artifacts.root'] = resolveMpsArtifacts.destinationDir
-ant.importBuild('code/languages/build.xml') { target -> 'ant-' + target }
+//ant.importBuild('code/languages/build.xml') { target -> 'ant-' + target }
 
-tasks['ant-check-mps-home'].dependsOn resolveMps
-tasks['ant-clean-and-build'].dependsOn resolveMps, resolveMpsArtifacts
+//tasks['ant-check-mps-home'].dependsOn resolveMps
+//tasks['ant-clean-and-build'].dependsOn resolveMps, resolveMpsArtifacts
+
+
+task iets3buildtask {
+    dependsOn 'resolveMps'
+    dependsOn 'resolveMpsArtifacts'
+    dependsOn 'build:iets3.opensource.allScripts:buildAllScriptsTask'
+    dependsOn 'build:iets3.opensource:iets3CoreBuildTask'
+    dependsOn 'build:iets3.opensource.tests:iets3TestsTask'
+    //tasks.findByName(resolveMpsArtifacts).mustRunAfter resolveMps
+    // tasks.findByName(':build:iets3.opensource:openSourceBuildTask').mustRunAfter ':build:iets3.opensource.allScripts:allScriptsBuildTask'
+    //tasks.findByName(':build:iets3.opensource.tests:testRunTask').mustRunAfter ':build:iets3.opensource:openSourceBuildTask'
+}
 
 task packageAllScripts(type: Zip, dependsOn: 'ant-clean-and-build') {
     baseName 'org.iets3.opensource.allScripts'
@@ -188,6 +200,16 @@ publishing {
     }
 }
 
+
+subprojects {
+    // required plugins
+    apply plugin: "base"
+    apply plugin: "maven-publish"
+    ant.property(name: 'mps.home', location: resolveMps.destinationDir )
+    ant.property(name: 'iets3.github.opensource.home', location: rootDir)
+    ant.property(name: 'artifacts.root', location: resolveMpsArtifacts.destinationDir )
+}
+
 // Ant <junit> task support
 repositories {
     mavenCentral()
@@ -211,5 +233,6 @@ ant.taskdef(name: 'junitreport', classname: 'org.apache.tools.ant.taskdefs.optio
 
 check.dependsOn 'ant-build-and-run-tests'
 
-defaultTasks 'ant-clean-and-build'
+defaultTasks 'iets3buildtask'
+//defaultTasks 'ant-clean-and-build'
 

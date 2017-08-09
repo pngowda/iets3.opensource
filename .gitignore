@@ -4,8 +4,7 @@
 .ant_targets
 .DS_Store
 .metadata
-.svn
-build/
+.sv
 /artifacts/
 /tmp/
 

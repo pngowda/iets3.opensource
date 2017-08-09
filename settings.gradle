@@ -1,0 +1,4 @@
+include ":build:iets3.opensource.allScripts",
+        ":build:iets3.opensource",
+        ":build:iets3.opensource.tests"
+rootProject.name = 'iets3.opensource'

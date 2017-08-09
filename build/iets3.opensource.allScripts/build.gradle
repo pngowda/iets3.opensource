@@ -1,0 +1,64 @@
+
+import org.apache.tools.ant.Project
+import org.apache.tools.ant.ProjectHelper
+import java.nio.file.Files
+
+def propertyMap=[keyA: 'valueA']
+def writePropMap=[keyB: 'valueB']
+def xmlFilePath='C:/iets3_original/iets3.opensource/build/iets3.opensource.allScripts/build-allScripts_input_output.xml'
+def inputFileList =new ArrayList()
+def outputFileList =new ArrayList()
+def resolvedInputFileList =new ArrayList()
+def resolvedOutputFileList =new ArrayList()
+
+
+ant.importBuild('/build-allScripts.xml'){ target -> 'first_ant_run-' + target }
+
+task readProperty() {
+    def antProject = new Project()
+    ProjectHelper.configureProject(antProject, file(xmlFilePath))
+    propertyMap = antProject.getProperties()
+    propertyMap.each { keyA, valueA -> writePropMap.put("\${" + "$keyA" + "}", "$valueA") }
+    //writePropMap.each { keyB, valueB -> println "$keyB --> $valueB" }
+}
+
+task parseXml(dependsOn: 'readProperty') {
+    def parsedProjectXml = new XmlSlurper().parse(xmlFilePath)
+    parsedProjectXml.target.input.file.each { file -> inputFileList.add(file.@path) }
+    inputFileList.each {
+        if (it.toString().contains("\$")) {
+            def toResolveString = it.toString().split("/").getAt(0)
+            def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
+            resolvedInputFileList.add(resolvedPath)
+        }
+    }
+    parsedProjectXml.target.output.file.each { file -> outputFileList.add(file.@path) }
+    outputFileList.each {
+        if (it.toString().contains("\$")) {
+            def toResolveString = it.toString().split("/").getAt(0)
+            def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
+            resolvedOutputFileList.add(resolvedPath)
+        }
+    }
+}
+
+tasks['first_ant_run-generate'].inputs.files(resolvedInputFileList)
+tasks['first_ant_run-generate'].outputs.files(resolvedOutputFileList)
+
+tasks['first_ant_run-assemble'].inputs.files(resolvedInputFileList)
+tasks['first_ant_run-assemble'].outputs.files(resolvedOutputFileList)
+
+tasks['first_ant_run-check'].inputs.files(resolvedInputFileList)
+tasks['first_ant_run-check'].outputs.files(resolvedOutputFileList)
+
+
+task buildAllScriptsTask {
+    dependsOn 'first_ant_run-clean'
+    dependsOn 'first_ant_run-generate'
+    dependsOn 'first_ant_run-assemble'
+    dependsOn 'first_ant_run-check'
+
+    tasks.findByName('first_ant_run-clean').mustRunAfter 'first_ant_run-assemble'
+    tasks.findByName('first_ant_run-assemble').mustRunAfter 'first_ant_run-generate'
+    tasks.findByName('first_ant_run-check').mustRunAfter 'first_ant_run-assemble'
+}
