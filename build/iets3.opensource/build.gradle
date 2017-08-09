@@ -1,15 +1,14 @@
 import org.apache.tools.ant.Project
 import org.apache.tools.ant.ProjectHelper
-import java.nio.file.Files
 
+def xmlFilePath='build_input_output.xml'
 def propertyMap=[keyA: 'valueA']
 def writePropMap=[keyB: 'valueB']
-def xmlFilePath='C:/iets3_original/iets3.opensource/build/iets3.opensource/build_input_output.xml'
 def inputFileList =new ArrayList()
 def outputFileList =new ArrayList()
 def resolvedInputFileList =new ArrayList()
 def resolvedOutputFileList =new ArrayList()
-
+def targetList=new ArrayList()
 
 ant.importBuild('/build.xml'){ target -> 'second_ant_run-' + target }
 
@@ -23,34 +22,52 @@ task readProperty() {
 
 task parseXml(dependsOn: 'readProperty') {
     def parsedProjectXml = new XmlSlurper().parse(xmlFilePath)
-    parsedProjectXml.target.input.file.each { file -> inputFileList.add(file.@path) }
-    inputFileList.each {
-        if (it.toString().contains("\$")) {
-            def toResolveString = it.toString().split("/").getAt(0)
-            def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
-            resolvedInputFileList.add(resolvedPath)
+    parsedProjectXml.depthFirst().findAll{
+        if(it.name()=='target'){
+            targetList.add(it.@name)
         }
     }
-    parsedProjectXml.target.output.file.each { file -> outputFileList.add(file.@path) }
-    outputFileList.each {
-        if (it.toString().contains("\$")) {
-            def toResolveString = it.toString().split("/").getAt(0)
-            def resolvedPath = it.toString().replace(toResolveString, writePropMap.get(toResolveString))
-            resolvedOutputFileList.add(resolvedPath)
+    targetList.each {targeName->
+        def tempInputList=new ArrayList()
+        def tempOutputList=new ArrayList()
+        parsedProjectXml.depthFirst().find{
+            if(it.name()=='target'&& it.@name==targeName){
+                println "Ant Target ----> "+ targeName
+                it.input.file.each{
+                    filepath->
+                        def inPath=filepath.@path
+                        if(inPath.toString().contains("\$")){
+                            def toResolveString = inPath.toString().split("/").getAt(0)
+                            def resolvedPath = inPath.toString().replace(toResolveString, writePropMap.get(toResolveString))
+                            tempInputList.add(resolvedPath)
+                        }
+                }
+                println "**********Input*****************"
+                tempInputList.each {
+                    println it.toString()
+                }
+                it.output.file.each{
+                    filepath->
+                        def outPath=filepath.@path
+                        if(outPath.toString().contains("\$")){
+                            def toResolveString = outPath.toString().split("/").getAt(0)
+                            def resolvedPath = outPath.toString().replace(toResolveString, writePropMap.get(toResolveString))
+                            tempOutputList.add(resolvedPath)
+                        }
+                }
+                println "**********Output****************"
+                tempOutputList.each {
+                    println it.toString()
+                }
+                tasks['second_ant_run-'+targeName+''].inputs.files(tempInputList)
+                tasks['second_ant_run-'+targeName+''].outputs.files(tempOutputList)
+            }
         }
     }
 }
 
-tasks['second_ant_run-clean'].inputs.files(resolvedInputFileList)
-tasks['second_ant_run-clean'].outputs.files(resolvedOutputFileList)
-
-tasks['second_ant_run-generate'].inputs.files(resolvedInputFileList)
-tasks['second_ant_run-generate'].outputs.files(resolvedOutputFileList)
-
-tasks['second_ant_run-assemble'].inputs.files(resolvedInputFileList)
-tasks['second_ant_run-assemble'].outputs.files(resolvedOutputFileList)
-
 task iets3CoreBuildTask {
+    dependsOn parseXml
     dependsOn 'second_ant_run-clean'
     dependsOn 'second_ant_run-generate'
     dependsOn 'second_ant_run-assemble'
