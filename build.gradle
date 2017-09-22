@@ -15,8 +15,16 @@ def forceLocal = project.hasProperty("forceLocalDependencies")
 
 // Dependency versions
 //ext.mpsVersion = '2017.2.2'
-ext.mpsVersion = 'MPS-172.1368-SNAPSHOT'
 
+mpsSnapshotVersion=System.getenv('mpsVersion')
+
+if (mpsSnapshotVersion != null && !mpsSnapshotVersion.empty) {
+    ext.mpsVersion = mpsSnapshotVersion
+} else {
+    ext.mpsVersion = '2017.2.2'
+}
+
+println "MPS  Version--->>> " + ext.mpsVersion
 
 // Project version
 if (project.hasProperty('iets3OpenSourceVersion')) {
