@@ -42,14 +42,13 @@ if (!project.hasProperty("mbeddrVersion")) {
 }
 
 
-ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/test_repo'
-ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/test_repo'
+ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
+ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
 ext.publishingRepository = version.toString().endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
 
 ext.dependencyRepositories = [
     'https://projects.itemis.de/nexus/content/repositories/mbeddr',
     'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots',
-	'https://projects.itemis.de/nexus/content/repositories/test_repo'
 ]
 
 ext.artifactsDir = new File(rootDir, 'artifacts')
