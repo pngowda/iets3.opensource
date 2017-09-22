@@ -14,7 +14,8 @@ def forceLocal = project.hasProperty("forceLocalDependencies")
 
 
 // Dependency versions
-ext.mpsVersion = '2017.2.2'
+//ext.mpsVersion = '2017.2.2'
+ext.mpsVersion = 'MPS-172.1368-SNAPSHOT'
 
 
 // Project version
@@ -41,13 +42,14 @@ if (!project.hasProperty("mbeddrVersion")) {
 }
 
 
-ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr'
-ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
+ext.releaseRepository = 'https://projects.itemis.de/nexus/content/repositories/test_repo'
+ext.snapshotRepository = 'https://projects.itemis.de/nexus/content/repositories/test_repo'
 ext.publishingRepository = version.toString().endsWith("-SNAPSHOT") ? snapshotRepository : releaseRepository
 
 ext.dependencyRepositories = [
     'https://projects.itemis.de/nexus/content/repositories/mbeddr',
-    'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots'
+    'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots',
+	'https://projects.itemis.de/nexus/content/repositories/test_repo'
 ]
 
 ext.artifactsDir = new File(rootDir, 'artifacts')
