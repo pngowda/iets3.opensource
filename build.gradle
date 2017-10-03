@@ -13,9 +13,9 @@ if (project.hasProperty("forceCI")) {
 def forceLocal = project.hasProperty("forceLocalDependencies")
 
 
-// Dependency versions
 //ext.mpsVersion = '2017.2.2'
 
+// Dependency versions
 def mpsSnapshotVersion=System.getenv('mpsVersion')
 
 if (mpsSnapshotVersion != null && !mpsSnapshotVersion.empty) {
